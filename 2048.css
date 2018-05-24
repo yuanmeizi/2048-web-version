@@ -1,18 +1,13 @@
-/**
- * Created by liuyubobobo on 14-4-11.
- * my site: http://www.liuyubobobo.com
- */
-
 header{
     display:block;
     margin:0 auto;
-    width:500px;
+    width: 100%;
     text-align:center;
 }
 
 header h1{
     font-family:Arial;
-    font-size:60px;
+    font-size:40px;
     font-weight:bold;
 }
 
@@ -47,7 +42,6 @@ header p{
 
     margin:50px auto;
     background-color:#bbada0;
-
     border-radius: 10px;
     position: relative;
 }

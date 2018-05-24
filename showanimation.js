@@ -9,8 +9,8 @@ function showNumber( i , j , randNumber ){
     numberCell.animate({
         width:"100px",
         height:"100px",
-        top:getPosTop( i , j ),
-        left:getPosLeft( i , j )
+        top:getPos( i , j ).top,
+        left:getPos( i , j ).left
     },50);
 }
 
@@ -18,8 +18,8 @@ function showMove( fromx , fromy , tox, toy ){
 
     var numberCell = $('#number-cell-' + fromx + '-' + fromy );
     numberCell.animate({
-        top:getPosTop( tox , toy ),
-        left:getPosLeft( tox , toy )
+        top:getPos( tox , toy ).top,
+        left:getPos( tox , toy ).left
     },200);
 }
 

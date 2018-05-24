@@ -3,8 +3,20 @@ var score = 0;
 var hasConflicted = new Array();
 
 $(document).ready(function(){
+
+    prepareForMobile();
+
     newgame();
 });
+
+function prepareForMobile(){
+
+
+
+
+}
+
+
 
 function newgame(){
     //初始化棋盘格
@@ -19,8 +31,8 @@ function init(){
         for( var j = 0 ; j < 4 ; j ++ ){
 
             var gridCell = $('#grid-cell-'+i+"-"+j);
-            gridCell.css('top', getPosTop( i , j ) );
-            gridCell.css('left', getPosLeft( i , j ) );
+            gridCell.css('top', getPos( i , j ).top );
+            gridCell.css('left', getPos( i , j ).left );
         }
 
     for( var i = 0 ; i < 4 ; i ++ ){
@@ -47,19 +59,24 @@ function updateBoardView(){
             var theNumberCell = $('#number-cell-'+i+'-'+j);
 
             if( board[i][j] == 0 ){
-                theNumberCell.css('width','0px');
-                theNumberCell.css('height','0px');
-                theNumberCell.css('top',getPosTop(i,j) + 50 );
-                theNumberCell.css('left',getPosLeft(i,j) + 50 );
-                theNumberCell.css('font-size',"20px" );
+                theNumberCell.css({
+                    'width': '0px',
+                    'height': '0px',
+                    'top': getPos(i,j).top + 50 ,
+                    'left': getPos(i,j).left + 50 ,
+                    'font-size': "20px"
+                });
+
             }
             else{
-                theNumberCell.css('width','100px');
-                theNumberCell.css('height','100px');
-                theNumberCell.css('top',getPosTop(i,j));
-                theNumberCell.css('left',getPosLeft(i,j));
-                theNumberCell.css('background-color',getNumberBackgroundColor( board[i][j] ) );
-                theNumberCell.css('color',getNumberColor( board[i][j] ) );
+                theNumberCell.css({
+                    'width': '100px',
+                    'height': '100px',
+                    'top': getPos(i,j).top,
+                    'left': getPos(i,j).left,
+                    'background-color': getNumberBackgroundColor( board[i][j] ),
+                    'color': getNumberColor( board[i][j] )
+                });
                 theNumberCell.text( getNumberText( board[i][j] ) );
                 theNumberCell.css('font-size',"20px" );
             }
