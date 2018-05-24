@@ -135,3 +135,12 @@ function nomove( board ){
     return true;
 }
 
+
+
+function isgameover(){
+    if( nospace( board ) && nomove( board ) ){
+
+        alert('game over');
+        
+    }
+}

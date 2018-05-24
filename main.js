@@ -115,28 +115,23 @@ function generateNumber(){
         return false;
 
     //随机一个位置
-    var randx = parseInt( Math.floor( Math.random()  * 4 ) );
-    var randy = parseInt( Math.floor( Math.random()  * 4 ) );
+    var tem = new Array();
+    var count = 0;
 
-    var times = 0;
-    while( times < 50 ){
-        if( board[randx][randy] == 0 )
-            break;
-
-        randx = parseInt( Math.floor( Math.random()  * 4 ) );
-        randy = parseInt( Math.floor( Math.random()  * 4 ) );
-
-        times ++;
-    }
-    if( times == 50 ){
-        for( var i = 0 ; i < 4 ; i ++ )
-            for( var j = 0 ; j < 4 ; j ++ ){
-                if( board[i][j] == 0 ){
-                    randx = i;
-                    randy = j;
-                }
+    for( var i = 0 ; i < 4 ; i ++ )
+        for( var j = 0 ; j < 4 ; j ++ ){
+            if( board[i][j] == 0 ){
+                
+                tem[count] = i*9+j;
+                count++;
             }
-    }
+        }
+
+    var pos = parseInt(Math.floor(Math.random()*count));
+
+    var randx = Math.floor(tem[pos]/9);
+    var randy = Math.floor(tem[pos]%9);
+
 
     //随机一个数字
     var randNumber = Math.random() < 0.5 ? 2 : 4;
@@ -245,14 +240,6 @@ document.addEventListener("touchend",function(e){
 });
 
 
-
-
-
-function isgameover(){
-    if( nospace( board ) && nomove( board ) ){
-        alert('game over');
-    }
-}
 
 function moveLeft(){
 
