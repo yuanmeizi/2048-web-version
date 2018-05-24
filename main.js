@@ -2,6 +2,8 @@ var board = new Array();
 var score = 0;
 var hasConflicted = new Array();
 
+var startx = 0;var starty = 0;var endx = 0;var endy = 0;
+
 $(document).ready(function(){
 
     prepareForMobile();
@@ -11,7 +13,25 @@ $(document).ready(function(){
 
 function prepareForMobile(){
 
+    if(documentWidth >= 500){
+        gridContainerWidth = 500;
+        cellSpace = 20;
+        cellSideLength = 100;
+    }
 
+
+    $("#grid-container").css({
+        "width": gridContainerWidth - 2 * cellSpace,
+        "height": gridContainerWidth - 2* cellSpace,
+        "padding": cellSpace,
+        "border-radius": 0.02 * cellSideLength
+    });
+
+    $(".grid-cell").css({
+        "width": cellSideLength,
+        "height": cellSideLength,
+        "border-radius": 0.02 * cellSideLength
+    })
 
 
 }
@@ -62,26 +82,30 @@ function updateBoardView(){
                 theNumberCell.css({
                     'width': '0px',
                     'height': '0px',
-                    'top': getPos(i,j).top + 50 ,
-                    'left': getPos(i,j).left + 50 ,
+                    'top': getPos(i,j).top + cellSideLength/2 ,
+                    'left': getPos(i,j).left + cellSideLength/2 ,
                     'font-size': "20px"
                 });
 
             }
             else{
                 theNumberCell.css({
-                    'width': '100px',
-                    'height': '100px',
+                    'width': cellSideLength,
+                    'height': cellSideLength,
                     'top': getPos(i,j).top,
                     'left': getPos(i,j).left,
                     'background-color': getNumberBackgroundColor( board[i][j] ),
                     'color': getNumberColor( board[i][j] )
                 });
                 theNumberCell.text( getNumberText( board[i][j] ) );
-                theNumberCell.css('font-size',"20px" );
             }
 
             hasConflicted[i][j] = false;
+
+            $(".number-cell").css({
+                "line-height": cellSideLength + "px",
+                "font-size": 0.25 * cellSideLength + "px"
+            })
         }
 }
 
@@ -125,26 +149,33 @@ function generateNumber(){
 }
 
 $(document).keydown( function( event ){
-    switch( event.keyCode ){
+
+    var codenum = event.keyCode || event.which;
+
+    switch( codenum ){
         case 37: //left
+        event.preventDefault();
             if( moveLeft() ){
                 setTimeout("generateNumber()",210);
                 setTimeout("isgameover()",300);
             }
             break;
         case 38: //up
+        event.preventDefault();
             if( moveUp() ){
                 setTimeout("generateNumber()",210);
                 setTimeout("isgameover()",300);
             }
             break;
         case 39: //right
+        event.preventDefault();
             if( moveRight() ){
                 setTimeout("generateNumber()",210);
                 setTimeout("isgameover()",300);
             }
             break;
         case 40: //down
+        event.preventDefault();
             if( moveDown() ){
                 setTimeout("generateNumber()",210);
                 setTimeout("isgameover()",300);
@@ -155,9 +186,71 @@ $(document).keydown( function( event ){
     }
 });
 
+
+document.addEventListener("touchstart",function(e){
+    startx = e.touches[0].pageX;
+    starty = e.touches[0].pageY;
+});
+
+document.addEventListener("touchend",function(e){
+
+    endx = e.changedTouches[0].pageX;
+    endy = e.changedTouches[0].pageY;
+
+    var detlaX = endx - startx;
+    var detlaY = endy - starty;
+
+    if(Math.abs(detlaX) <= 0.15 * documentWidth && Math.abs(detlaY) <= 0.2 * documentWidth){
+        return;
+    }
+
+    if(Math.abs(detlaX) > Math.abs(detlaY)){
+
+        if(detlaX > 0){
+            //move right
+            if( moveRight() ){
+                setTimeout("generateNumber()",210);
+                setTimeout("isgameover()",300);
+            }
+
+        }
+        else{
+            //move left
+            if( moveLeft() ){
+                setTimeout("generateNumber()",210);
+                setTimeout("isgameover()",300);
+            }
+        }
+
+    }else if(Math.abs(detlaX) < Math.abs(detlaY)){
+
+        if(detlaY > 0){
+            //move down
+            if( moveDown() ){
+                setTimeout("generateNumber()",210);
+                setTimeout("isgameover()",300);
+            }
+
+        }else{
+            //move up
+            if( moveUp() ){
+                setTimeout("generateNumber()",210);
+                setTimeout("isgameover()",300);
+            }
+        }
+    }
+    else{
+        return;
+    }
+});
+
+
+
+
+
 function isgameover(){
     if( nospace( board ) && nomove( board ) ){
-        alert('gameover!');
+        alert('game over');
     }
 }
 

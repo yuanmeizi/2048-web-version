@@ -6,8 +6,8 @@ cellSideLength = 0.18 * documentWidth;
 
 function getPos( i , j ){
     return {
-        top: 20 + i*120,
-        left: 20 + j*120
+        top: cellSpace + i*(cellSideLength + cellSpace),
+        left: cellSpace + j*(cellSideLength + cellSpace)
     }
 }
 
