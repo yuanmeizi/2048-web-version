@@ -259,7 +259,7 @@ function moveLeft(){
                         board[i][j] = 0;
                         continue;
                     }
-                    else if( board[i][k] == board[i][j] && noBlockHorizontal( i , k , j , board ) && !hasConflicted[i][k] ){
+                    else if( board[i][k] == board[i][j] && noBlockHorizontal( i , k , j , board ) && !hasConflicted[i][k] && board[i][j] != 2048){
                         //move
                         showMove( i , j , i , k );
                         //add
@@ -297,7 +297,7 @@ function moveRight(){
                         board[i][j] = 0;
                         continue;
                     }
-                    else if( board[i][k] == board[i][j] && noBlockHorizontal( i , j , k , board ) && !hasConflicted[i][k] ){
+                    else if( board[i][k] == board[i][j] && noBlockHorizontal( i , j , k , board ) && !hasConflicted[i][k]  && board[i][j] != 2048){
                         //move
                         showMove( i , j , i , k);
                         //add
@@ -336,7 +336,7 @@ function moveUp(){
                         board[i][j] = 0;
                         continue;
                     }
-                    else if( board[k][j] == board[i][j] && noBlockVertical( j , k , i , board ) && !hasConflicted[k][j] ){
+                    else if( board[k][j] == board[i][j] && noBlockVertical( j , k , i , board ) && !hasConflicted[k][j]  && board[i][j] != 2048){
                         //move
                         showMove( i , j , k , j );
                         //add
@@ -374,7 +374,7 @@ function moveDown(){
                         board[i][j] = 0;
                         continue;
                     }
-                    else if( board[k][j] == board[i][j] && noBlockVertical( j , i , k , board ) && !hasConflicted[k][j] ){
+                    else if( board[k][j] == board[i][j] && noBlockVertical( j , i , k , board ) && !hasConflicted[k][j]  && board[i][j] != 2048){
                         //move
                         showMove( i , j , k , j );
                         //add
